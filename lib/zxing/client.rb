@@ -6,7 +6,7 @@ module ZXing
 
   class Client
     def self.new
-      port = find_available_port
+      port = APP_CONFIG[:zxing_port] || "7777"
       remote_client = IO.popen("#{ZXing::BIN} #{port}")
 
       sleep 0.5 until responsive?(port)
