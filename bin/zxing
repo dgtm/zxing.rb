@@ -14,9 +14,8 @@ java_args = [
 
 lib = File.expand_path('../../lib', __FILE__)
 $:.unshift(lib) unless $:.include?(lib)
-
 path = "#{lib}/zxing/server.rb"
-port = APP_CONFIG[:zxing_port] || "7777"
+port = "7777"
 ruby_args = [
   "-r", path,
   "-e", "ZXing::Server.start!(#{port})"
