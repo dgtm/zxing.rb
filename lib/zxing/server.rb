@@ -11,8 +11,13 @@ if RUBY_PLATFORM == 'java'
     class Server
       def self.start!(port)
         abort_on_parent_exit!
-        DRb.start_service("druby://127.0.0.1:#{port}", ZXing)
-        DRb.thread.join
+        begin
+          DRb.start_service("druby://127.0.0.1:#{port}", ZXing)
+        rescue Exception => e
+          Process.exit!(true)
+        else
+          DRb.thread.join
+        end
       end
 
       private
