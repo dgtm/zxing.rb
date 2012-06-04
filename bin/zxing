@@ -20,5 +20,8 @@ ruby_args = [
   "-r", path,
   "-e", "ZXing::Server.start!(#{port})"
 ]
-
-exec("java", *(java_args + ruby_args))
+unless `netstat -tan | grep 7777 | awk '{print $4}' | awk -F. '{print $NF}'`.chomp == "7777"
+ exec("java", *(java_args + ruby_args))
+#  else
+#    Process.exit!(true)
+end
